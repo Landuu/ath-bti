@@ -2,11 +2,11 @@
 
 namespace SztfrVig
 {
-    public class Vig
+    public static class Vig
     {
-        private readonly char[] _letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+        private static readonly char[] _letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
-        private char Shift(char ch, int shift)
+        private static char Shift(char ch, int shift)
         {
             if (shift <= 0) return ch;
             int charIndex = Array.IndexOf(_letters, ch) + shift;
@@ -14,7 +14,7 @@ namespace SztfrVig
             return _letters[charIndex];
         }
 
-        private char GetChar(Queue<char> textQ, Queue<char> keyQ)
+        private static char GetChar(Queue<char> textQ, Queue<char> keyQ)
         {
             char c = textQ.Dequeue();
             if (!char.IsLetter(c)) return c;
@@ -24,7 +24,7 @@ namespace SztfrVig
                 else return Shift(c, 0);
         }
 
-        public string Encipher(string text, string key)
+        public static string Encipher(string text, string key)
         {
             text = text.ToUpper();
             key = key.Replace(" ", "").ToUpper();
@@ -42,11 +42,10 @@ namespace SztfrVig
     {
         public static void Main()
         {
-            var vig = new Vig();
             string text = "TO JEST BARDZO TAJNY TEKST";
             string key = "TAJNE";
 
-            string output = vig.Encipher(text, key);
+            string output = Vig.Encipher(text, key);
             Console.WriteLine(text);
             Console.WriteLine(key);
             Console.WriteLine(output);

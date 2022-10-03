@@ -26,6 +26,7 @@ namespace SztfrVig
 
         public static string Encipher(string text, string key)
         {
+            if (key.Length == 0) return text;
             text = text.ToUpper();
             key = key.Replace(" ", "").ToUpper();
             var textQ = new Queue<char>(text);
@@ -36,19 +37,48 @@ namespace SztfrVig
             }
             return output;
         }
+
+        private static string GetDecipherKey(string key)
+        {
+            string deKey = "";
+            foreach (char c in key)
+            {
+                int charIndex = Array.IndexOf(_letters, c);
+                int nextIndex = (_letters.Length - charIndex) % _letters.Length;
+                deKey += _letters[nextIndex];
+            }
+            return deKey;
+        }
+
+        public static string Decipher(string text, string key)
+        {
+            string deKey = GetDecipherKey(key);
+            return Encipher(text, deKey);
+        }
     }
 
     public class Program
     {
         public static void Main()
         {
-            string text = "TO JEST BARDZO TAJNY TEKST";
-            string key = "TAJNE";
+            Console.Write("Podaj tekst do zaszyfrowania: ");
+            string text = Console.ReadLine() ?? "";
+            Console.Write("Podaj klucz:");
+            string key = Console.ReadLine() ?? "";
 
-            string output = Vig.Encipher(text, key);
+            Console.WriteLine();
+            Console.Write("Bazowy tekst: ");
             Console.WriteLine(text);
+            Console.Write("Klucz: ");
             Console.WriteLine(key);
-            Console.WriteLine(output);
+
+            string encrypted = Vig.Encipher(text, key);
+            string decrypted = Vig.Decipher(encrypted, key);
+            Console.WriteLine();
+            Console.Write("Zaszyfrowany tekst:");
+            Console.WriteLine(encrypted);
+            Console.Write("Odszyfrowany tekst:");
+            Console.WriteLine(decrypted);
         }
     }
 }

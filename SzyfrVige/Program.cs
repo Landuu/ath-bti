@@ -32,7 +32,7 @@ namespace SztfrVig
             var textQ = new Queue<char>(text);
             var keyQ = new Queue<char>(string.Concat(Enumerable.Repeat(key, text.Length)));
             string output = string.Empty;
-            while(textQ.Count > 0){
+            while(textQ.Count > 0) {
                 output += GetChar(textQ, keyQ);
             }
             return output;
@@ -52,7 +52,7 @@ namespace SztfrVig
 
         public static string Decipher(string text, string key)
         {
-            string deKey = GetDecipherKey(key);
+            string deKey = GetDecipherKey(key.ToUpper().Replace(" ", ""));
             return Encipher(text, deKey);
         }
     }
@@ -61,22 +61,28 @@ namespace SztfrVig
     {
         public static void Main()
         {
-            Console.Write("Podaj tekst do zaszyfrowania: ");
+            /*
+                Console.Write("Podaj tekst do zaszyfrowania: ");
+                string text = Console.ReadLine() ?? "";
+                Console.Write("Podaj klucz:");
+                string key = Console.ReadLine() ?? "";
+
+                string encrypted = Vig.Encipher(text, key);
+                string decrypted = Vig.Decipher(encrypted, key);
+                Console.WriteLine();
+                Console.Write("Zaszyfrowany tekst:");
+                Console.WriteLine(encrypted);
+                Console.Write("Odszyfrowany tekst:");
+                Console.WriteLine(decrypted);
+            */
+
+            Console.Write("Podaj tekst do odszyfrowania: ");
             string text = Console.ReadLine() ?? "";
             Console.Write("Podaj klucz:");
             string key = Console.ReadLine() ?? "";
 
+            string decrypted = Vig.Decipher(text, key);
             Console.WriteLine();
-            Console.Write("Bazowy tekst: ");
-            Console.WriteLine(text);
-            Console.Write("Klucz: ");
-            Console.WriteLine(key);
-
-            string encrypted = Vig.Encipher(text, key);
-            string decrypted = Vig.Decipher(encrypted, key);
-            Console.WriteLine();
-            Console.Write("Zaszyfrowany tekst:");
-            Console.WriteLine(encrypted);
             Console.Write("Odszyfrowany tekst:");
             Console.WriteLine(decrypted);
         }

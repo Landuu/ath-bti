@@ -6,11 +6,12 @@ namespace SztfrVig
     {
         private static readonly char[] _letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
+
         private static char Shift(char ch, int shift)
         {
             if (shift <= 0) return ch;
             int charIndex = Array.IndexOf(_letters, ch) + shift;
-            if (charIndex >= _letters.Length) charIndex -= _letters.Length;
+            charIndex %= _letters.Length;
             return _letters[charIndex];
         }
 
@@ -61,22 +62,22 @@ namespace SztfrVig
     {
         public static void Main()
         {
-            /*
-                Console.Write("Podaj tekst do zaszyfrowania: ");
-                string text = Console.ReadLine() ?? "";
-                Console.Write("Podaj klucz:");
-                string key = Console.ReadLine() ?? "";
 
-                string encrypted = Vig.Encipher(text, key);
-                string decrypted = Vig.Decipher(encrypted, key);
-                Console.WriteLine();
-                Console.Write("Zaszyfrowany tekst:");
-                Console.WriteLine(encrypted);
-                Console.Write("Odszyfrowany tekst:");
-                Console.WriteLine(decrypted);
-            */
+            Console.Write("Podaj tekst do zaszyfrowania: ");
+            string text = Console.ReadLine() ?? "";
+            Console.Write("Podaj klucz:");
+            string key = Console.ReadLine() ?? "";
 
-            Console.Write("Podaj tekst do odszyfrowania: ");
+            string encrypted = Vig.Encipher(text, key);
+            string decrypted = Vig.Decipher(encrypted, key);
+            Console.WriteLine();
+            Console.Write("Zaszyfrowany tekst:");
+            Console.WriteLine(encrypted);
+            Console.Write("Odszyfrowany tekst:");
+            Console.WriteLine(decrypted);
+
+
+            /*Console.Write("Podaj tekst do odszyfrowania: ");
             string text = Console.ReadLine() ?? "";
             Console.Write("Podaj klucz:");
             string key = Console.ReadLine() ?? "";
@@ -84,7 +85,7 @@ namespace SztfrVig
             string decrypted = Vig.Decipher(text, key);
             Console.WriteLine();
             Console.Write("Odszyfrowany tekst:");
-            Console.WriteLine(decrypted);
+            Console.WriteLine(decrypted);*/
         }
     }
 }
